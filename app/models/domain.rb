@@ -5,7 +5,13 @@ class Domain
   include RESTinPeace
 
   rest_in_peace do
-    use_api Faraday.new(url: 'http://localhost:3000')
+    use_api ->() do
+      ::Faraday.new(url: 'http://localhost:3000', headers: { 'Accept' => 'application/json' }) do |faraday|
+        faraday.request :json
+        faraday.response :json
+        faraday.adapter :excon
+      end
+    end
 
     attributes do
       read :id, :name_punycode
@@ -13,9 +19,8 @@ class Domain
     end
 
     resource do
-      put :save_resource, '/domains/:id'
       put :save, '/domains/:id'
-      post :create_resource, '/domains'
+      post :create, '/domains'
       delete :destroy, '/domains/:id'
     end
 

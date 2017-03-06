@@ -36,6 +36,8 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 gem 'rest-in-peace'
 gem 'faraday'
+gem 'excon'
+
 gem 'pdns-client'           # , path: '../pdns-client'
 
 group :development, :test do

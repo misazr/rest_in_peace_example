@@ -1,11 +1,11 @@
+require 'faraday'
+require 'rest-in-peace'
+
 class MyPost
   include RESTinPeace
 
   rest_in_peace do
-    use_api ->() do
-      Faraday.new(url: 'http://localhost:3000') do |faraday|
-        faraday.response :json, content_type: /\bjson$/
-      end
+    use_api Faraday.new(url: 'http://localhost:3001')
     end
 
     attributes do
@@ -26,4 +26,3 @@ class MyPost
 
     acts_as_active_model
   end
-end
